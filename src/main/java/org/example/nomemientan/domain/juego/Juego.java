@@ -15,12 +15,16 @@ import org.example.nomemientan.domain.ronda.values.RondaId;
 import java.util.List;
 import java.util.Map;
 
+/*Este parte del juego es un agregado. Un agregado es una entidad que contiene otras entidades.
+  Este agregado tiene como entidades a jugadores.
+  Se le pasan un identidficador para identificar el jugador
+  Por cada judador que es creado se adiciona un jugador con los datos.*/
+
 public class Juego extends AggregateEvent<JuegoId> {
 
     protected Boolean juegoInicializado;
     protected Map<JugadorId, Jugador> jugadores;
     protected RondaId rondaId;
-
 
     public Juego(JuegoId entityId, JugadorFactory jugadorFactory) {
         super(entityId);

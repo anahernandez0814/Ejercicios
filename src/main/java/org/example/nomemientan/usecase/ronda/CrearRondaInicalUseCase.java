@@ -9,8 +9,12 @@ import org.example.nomemientan.domain.juego.values.JuegoId;
 import org.example.nomemientan.domain.ronda.values.RondaId;
 import org.example.nomemientan.domain.ronda.Ronda;
 
+//Segundo caso de uso en paquete ronda
+//Se crea un caso de uso para cada necesidad (acciones que se van resolviendo para las condiciones del juego)
+//Por cada caso de uso que se crea, se realiza una prueba que se evidencia en el paquete de test
 public class CrearRondaInicalUseCase extends UseCase<TriggeredEvent<JuegoInicializado>, ResponseEvents> {
     @Override
+
     public void executeUseCase(TriggeredEvent<JuegoInicializado> input) {
         var event = input.getDomainEvent();
         var rondaId = new RondaId();

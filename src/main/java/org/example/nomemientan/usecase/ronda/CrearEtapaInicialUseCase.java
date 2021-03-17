@@ -7,6 +7,9 @@ import org.example.nomemientan.domain.ronda.Ronda;
 import org.example.nomemientan.domain.ronda.events.DadosLanzados;
 import org.example.nomemientan.domain.ronda.values.RondaId;
 
+//Primer caso de uso en paquete
+//Se crea un caso de uso para cada necesidad (acciones que se van resolviendo para las condiciones del juego)
+//Por cada caso de uso que se crea, se realiza una prueba que se evidencia en el paquete de test
 public class CrearEtapaInicialUseCase extends UseCase<TriggeredEvent<DadosLanzados>, ResponseEvents> {
     @Override
     public void executeUseCase(TriggeredEvent<DadosLanzados> input) {

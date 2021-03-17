@@ -28,20 +28,36 @@ class CrearJuegoUseCaseTest {
                 JugadorId.of("xxxxx"), new Capital(500),
                 JugadorId.of("ffff"), new Capital(500)
         );
+        /* Principalmente tenemos los comandos y casos de uso.
+        El comando esta compuesto del capital y el nomebre.
+        Donde cada nombre es diferente y cada capital debe ser igual. Eso se inyecta o se pasa a crear juego.*/
         var command = new CrearJuego(capiltales, nombres);
         var useCase = new CrearJuegoUseCase();
 
-        var events = UseCaseHandler.getInstance()
+
+        /*Se preparan las entradas (creancion de objetos)
+        En esta parte se esta ejecutando y tenemos algo llamado Hanlder que es un manejador
+        En donde se entrega el comando y el caso de uso dandole gestion para que le entregue los eventos
+        que han pasado en esos casos de uso.
+         */
+
+        //Con get instance se esta reciclando la instancia
+        var events = UseCaseHandler.getInstance(
+                //Ejecuación sincrona: Es una respuesta directa. Retorna unos eventos directos.
                 .syncExecutor(useCase, new RequestCommand<>(command))
                 .orElseThrow()
                 .getDomainEvents();
 
-        var juegoCreado = (JuegoCreado) events.get(0);
-        var jugadorAdicionadoParaRaul = (JugadorAdicionado) events.get(2);
-        var jugadorAdicionadoParaAndres = (JugadorAdicionado) events.get(1);
+        //Estos eventos se estan consultando por la posicion ya que es una lista.
+        var juegoCreado = (JuegoCreado) events.get(0); //Juego creado
+        var jugadorAdicionadoParaRaul = (JugadorAdicionado) events.get(2); //Jugador adicionado
+        var jugadorAdicionadoParaAndres = (JugadorAdicionado) events.get(1); //Jugador adicionado
+        //Son tres eventos que salen cuando se ejecuta el caso de uso con el comando.
 
         Assertions.assertTrue(Objects.nonNull(juegoCreado.getJuegoId().value()));
 
+        //Verificaciones que se hacen. Validaciones de que pasa o no pasa.
+        //Indicando si la prueba falla o si la prueba pasa correctamente.
         Assertions.assertEquals("Raul Alzate", jugadorAdicionadoParaRaul.getNombre().value());
         Assertions.assertEquals(500, jugadorAdicionadoParaRaul.getCapital().value());
         Assertions.assertEquals("xxxxx", jugadorAdicionadoParaRaul.getJugadorId().value());
